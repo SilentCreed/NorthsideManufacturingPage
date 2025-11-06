@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NorthSide Manufacturing</title>
+
+  <!-- EmailJS library -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0a0f1f;
+      color: #e5e7eb;
+    }
+    header {
+      background-color: #0b1736;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background-color: #162447;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 0.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      color: #dbeafe;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #60a5fa;
+    }
+    section {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #1e293b;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      scroll-margin-top: 80px;
+    }
+    h1, h2 {
+      color: #93c5fd;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input, textarea, button {
+      padding: 0.75rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background-color: #111827;
+      color: #f1f5f9;
+    }
+    button {
+      background-color: #1e3a8a;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #3b82f6;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #0b1736;
+      color: #9ca3af;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+    #confirmation {
+      margin-top: 1rem;
+      color: #10b981;
+      font-weight: bold;
+      display: none;
+    }
+    @media (max-width: 600px) {
+      section {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NorthSide Manufacturing</h1>
+  </header>
+
+  <nav>
+    <a href="#about">About Us</a>
+    <a href="#submit">Submit Form</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>Welcome to NorthSide Manufacturing! We’re a high school class focused on hands-on learning in woodworking, metalwork, and design. Our students gain practical experience with tools, materials, and creative problem solving — preparing them for real-world manufacturing and engineering careers.</p>
+  </section>
+
+  <section id="submit">
+    <h2>Repair Request Form</h2>
+    <form id="repairForm">
+      <input type="text" id="name" placeholder="Teacher Name" required />
+      <input type="text" id="classPeriod" placeholder="Room Number" required />
+      <input type="text" id="chairNumber" placeholder="Amount of Chairs" required />
+      <textarea id="description" placeholder="Describe the Issue" rows="4" required></textarea>
+      <input type="text" id="contacts" placeholder="Contact Information" required />
+      <button type="submit">Submit Request</button>
+    </form>
+    <p id="confirmation">✅ Your request has been submitted successfully!</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>If you have any questions, feel free to reach out to us at:</p>
+    <p><strong>Email:</strong> <a href="mailto:placeholder@classroom.edu">placeholder@classroom.edu</a></p>
+  </section>
+
+  <footer>
+    <p>NorthSide Manufacturing Repair Requests © <span id="year"></span></p>
+  </footer>
+
+  <!-- ✅ All JS runs AFTER page loads -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Initialize EmailJS with your public key
+      emailjs.init("LkdiF9NNopPX56W_T");
+
+      // Set current year in footer
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Form submit handler
+      document.getElementById('repairForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const params = {
+          name: document.getElementById('name').value,
+          classPeriod: document.getElementById('classPeriod').value,
+          chairNumber: document.getElementById('chairNumber').value,
+          description: document.getElementById('description').value,
+          contacts: document.getElementById('contacts').value
+        };
+
+        // ⚠️ Make sure this service ID matches your EmailJS dashboard
+        emailjs.send("service_pcaq5ja", "template_56frcc8", params)
+          .then(function() {
+            const confirmation = document.getElementById('confirmation');
+            confirmation.style.display = 'block';
+            e.target.reset();
+            setTimeout(() => confirmation.style.display = 'none', 3000);
+          })
+          .catch(function(err) {
+            alert("❌ Error Please Try Again.");
+            console.error(err);
+          });
+      });
+    });
+  </script>
+</body>
+</html>

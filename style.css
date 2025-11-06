@@ -1,0 +1,47 @@
+/* Background gradient for body */
+.gradient-bg {
+  background: linear-gradient(135deg, #1a1a40, #3c1053);
+}
+
+/* Smooth fade for modal appearance */
+#proxyModal {
+  transition: opacity 0.3s ease;
+}
+
+/* Notification styles */
+#notifications .notification {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  animation: fadeInOut 4s ease forwards;
+}
+
+/* Notification animation */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10%, 90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Proxy input enhancements */
+.proxy-container input[type="text"] {
+  background-color: #f3f4f6;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.proxy-container input[type="text"]::placeholder {
+  color: #888;
+}
